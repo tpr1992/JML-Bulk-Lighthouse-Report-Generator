@@ -1,8 +1,8 @@
 /***************************************************
- * Automated Lighthouse Report
- * template by james@upbuild.io
- * built for JML by tronan@jmclaughlin.com
- ***************************************************/
+* Automated Lighthouse Report
+* template by james@upbuild.io
+* built for JML by tronan@jmclaughlin.com
+***************************************************/
 
 // ================== //
 // -  Trigger Times - //
@@ -22,35 +22,35 @@
 function onOpen() {
   var sheet = SpreadsheetApp.getActiveSpreadsheet();
   var entries = [{
-      name: "Set Report & Log Schedule",
-      functionName: "scheduleboth"
-    },
-    {
-      name: "Manual Push Report",
-      functionName: "runTool"
-    },
-    {
-      name: "Manual Push Log",
-      functionName: "runLog"
-    },
-    {
-      name: "Reset Schedule",
-      functionName: "resetSchedule"
-    }
-  ];
-  sheet.addMenu("PageSpeed Menu", entries);
+    name: "Set Report & Log Schedule",
+    functionName: "scheduleboth"
+  },
+  {
+    name: "Manual Push Report",
+    functionName: "runTool"
+  },
+  {
+    name: "Manual Push Log",
+    functionName: "runLog"
+  },
+  {
+    name: "Reset Schedule",
+    functionName: "resetSchedule"
+  }
+];
+sheet.addMenu("PageSpeed Menu", entries);
 
-  // Add JML Menu to run custom schedule
-  var dailySchedule = [{
-      name: "Set Daily Schedule",
-      functionName: "dailyTrigger"
-    },
-    {
-      name: "Clear Schedule",
-      functionName: "resetSchedule"
-    }
-  ];
-  sheet.addMenu("JML Menu", dailySchedule)
+// Add JML Menu to run custom schedule
+var dailySchedule = [{
+  name: "Set Daily Schedule",
+  functionName: "dailyTrigger"
+},
+{
+  name: "Clear Schedule",
+  functionName: "resetSchedule"
+}
+];
+sheet.addMenu("JML Menu", dailySchedule)
 }
 
 function resetsuccess() {
@@ -113,54 +113,54 @@ function dailyTrigger() {
 
 function createDailyReportTriggerMorningOne() {
   ScriptApp.newTrigger('runTool')
-    .timeBased()
-    .atHour(9)
-    .everyDays(1)
-    .create();
+  .timeBased()
+  .atHour(9)
+  .everyDays(1)
+  .create();
 }
 
 function createDailyReportTriggerMorningTwo() {
   ScriptApp.newTrigger('runTool')
-    .timeBased()
-    .atHour(10)
-    .everyDays(1)
-    .create();
+  .timeBased()
+  .atHour(10)
+  .everyDays(1)
+  .create();
 }
 
 //######################
 
 function createDailyReportTriggerAfternoonOne() {
   ScriptApp.newTrigger('runTool')
-    .timeBased()
-    .atHour(12)
-    .everyDays(1)
-    .create();
+  .timeBased()
+  .atHour(12)
+  .everyDays(1)
+  .create();
 }
 
 function createDailyReportTriggerAfternoonTwo() {
   ScriptApp.newTrigger('runTool')
-    .timeBased()
-    .atHour(13)
-    .everyDays(1)
-    .create();
+  .timeBased()
+  .atHour(13)
+  .everyDays(1)
+  .create();
 }
 
 //######################
 
 function createDailyReportTriggerEveningOne() {
   ScriptApp.newTrigger('runTool')
-    .timeBased()
-    .atHour(16)
-    .everyDays(1)
-    .create();
+  .timeBased()
+  .atHour(16)
+  .everyDays(1)
+  .create();
 }
 
 function createDailyReportTriggerEveningTwo() {
   ScriptApp.newTrigger('runTool')
-    .timeBased()
-    .atHour(17)
-    .everyDays(1)
-    .create();
+  .timeBased()
+  .atHour(17)
+  .everyDays(1)
+  .create();
 }
 
 // ***************
@@ -169,26 +169,26 @@ function createDailyReportTriggerEveningTwo() {
 
 function createDailyLogTriggerMorning() {
   ScriptApp.newTrigger('runLog')
-    .timeBased()
-    .atHour(11)
-    .everyDays(1)
-    .create();
+  .timeBased()
+  .atHour(11)
+  .everyDays(1)
+  .create();
 }
 
 function createDailyLogTriggerAfternoon() {
   ScriptApp.newTrigger('runLog')
-    .timeBased()
-    .atHour(14)
-    .everyDays(1)
-    .create();
+  .timeBased()
+  .atHour(14)
+  .everyDays(1)
+  .create();
 }
 
 function createDailyLogTriggerEvening() {
   ScriptApp.newTrigger('runLog')
-    .timeBased()
-    .atHour(18)
-    .everyDays(1)
-    .create();
+  .timeBased()
+  .atHour(18)
+  .everyDays(1)
+  .create();
 }
 
 // ***************
@@ -248,13 +248,13 @@ function emailLink(email, subject, date, time) {
   var jmlLogo = "<<<<<ADD LOGO HERE>>>>>"
   var embedLogo = "<img height='20%' width='20%' src='cid:jmlLogo'>"
   var jmlLogoBlob = UrlFetchApp
-                         .fetch(jmlLogo)
-                         .getBlob()
-                         .setName("jmlLogoBlob");
-    MailApp.sendEmail({
+  .fetch(jmlLogo)
+  .getBlob()
+  .setName("jmlLogoBlob");
+  MailApp.sendEmail({
     to: email,
     subject: subject + date + "-" + time,
-      htmlBody: (message + liveLink + downloadCsv + "<br><br>" + "<hr style='margin-bottom:15px;'>" + embedLogo),
+    htmlBody: (message + liveLink + downloadCsv + "<br><br>" + "<hr style='margin-bottom:15px;'>" + embedLogo),
     inlineImages: {jmlLogo: jmlLogoBlob}
   })
 }
@@ -393,69 +393,69 @@ function startScheduledReportOne() {
   if (reportDay == "MONDAY") {
 
     ScriptApp.newTrigger('runTool')
-      .timeBased()
-      .atHour(newhour)
-      .onWeekDay(ScriptApp.WeekDay.MONDAY)
-      .create();
+    .timeBased()
+    .atHour(newhour)
+    .onWeekDay(ScriptApp.WeekDay.MONDAY)
+    .create();
   }
 
   if (reportDay == "TUESDAY") {
 
     ScriptApp.newTrigger('runTool')
-      .timeBased()
-      .atHour(newhour)
-      .onWeekDay(ScriptApp.WeekDay.TUESDAY)
-      .create();
+    .timeBased()
+    .atHour(newhour)
+    .onWeekDay(ScriptApp.WeekDay.TUESDAY)
+    .create();
 
   }
 
   if (reportDay == "WEDNESDAY") {
 
     ScriptApp.newTrigger('runTool')
-      .timeBased()
-      .atHour(newhour)
-      .onWeekDay(ScriptApp.WeekDay.WEDNESDAY)
-      .create();
+    .timeBased()
+    .atHour(newhour)
+    .onWeekDay(ScriptApp.WeekDay.WEDNESDAY)
+    .create();
 
   }
 
   if (reportDay == "THURSDAY") {
 
     ScriptApp.newTrigger('runTool')
-      .timeBased()
-      .atHour(newhour)
-      .onWeekDay(ScriptApp.WeekDay.THURSDAY)
-      .create();
+    .timeBased()
+    .atHour(newhour)
+    .onWeekDay(ScriptApp.WeekDay.THURSDAY)
+    .create();
 
   }
 
   if (reportDay == "FRIDAY") {
 
     ScriptApp.newTrigger('runTool')
-      .timeBased()
-      .atHour(newhour)
-      .onWeekDay(ScriptApp.WeekDay.FRIDAY)
-      .create();
+    .timeBased()
+    .atHour(newhour)
+    .onWeekDay(ScriptApp.WeekDay.FRIDAY)
+    .create();
 
   }
 
   if (reportDay == "SATURDAY") {
 
     ScriptApp.newTrigger('runTool')
-      .timeBased()
-      .atHour(newhour)
-      .onWeekDay(ScriptApp.WeekDay.SATURDAY)
-      .create();
+    .timeBased()
+    .atHour(newhour)
+    .onWeekDay(ScriptApp.WeekDay.SATURDAY)
+    .create();
 
   }
 
   if (reportDay == "SUNDAY") {
 
     ScriptApp.newTrigger('runTool')
-      .timeBased()
-      .atHour(newhour)
-      .onWeekDay(ScriptApp.WeekDay.SUNDAY)
-      .create();
+    .timeBased()
+    .atHour(newhour)
+    .onWeekDay(ScriptApp.WeekDay.SUNDAY)
+    .create();
   }
 }
 
@@ -541,69 +541,69 @@ function startScheduledReportTwo() {
   if (reportDay == "MONDAY") {
 
     ScriptApp.newTrigger('runTool')
-      .timeBased()
-      .atHour(newhour)
-      .onWeekDay(ScriptApp.WeekDay.MONDAY)
-      .create();
+    .timeBased()
+    .atHour(newhour)
+    .onWeekDay(ScriptApp.WeekDay.MONDAY)
+    .create();
   }
 
   if (reportDay == "TUESDAY") {
 
     ScriptApp.newTrigger('runTool')
-      .timeBased()
-      .atHour(newhour)
-      .onWeekDay(ScriptApp.WeekDay.TUESDAY)
-      .create();
+    .timeBased()
+    .atHour(newhour)
+    .onWeekDay(ScriptApp.WeekDay.TUESDAY)
+    .create();
 
   }
 
   if (reportDay == "WEDNESDAY") {
 
     ScriptApp.newTrigger('runTool')
-      .timeBased()
-      .atHour(newhour)
-      .onWeekDay(ScriptApp.WeekDay.WEDNESDAY)
-      .create();
+    .timeBased()
+    .atHour(newhour)
+    .onWeekDay(ScriptApp.WeekDay.WEDNESDAY)
+    .create();
 
   }
 
   if (reportDay == "THURSDAY") {
 
     ScriptApp.newTrigger('runTool')
-      .timeBased()
-      .atHour(newhour)
-      .onWeekDay(ScriptApp.WeekDay.THURSDAY)
-      .create();
+    .timeBased()
+    .atHour(newhour)
+    .onWeekDay(ScriptApp.WeekDay.THURSDAY)
+    .create();
 
   }
 
   if (reportDay == "FRIDAY") {
 
     ScriptApp.newTrigger('runTool')
-      .timeBased()
-      .atHour(newhour)
-      .onWeekDay(ScriptApp.WeekDay.FRIDAY)
-      .create();
+    .timeBased()
+    .atHour(newhour)
+    .onWeekDay(ScriptApp.WeekDay.FRIDAY)
+    .create();
 
   }
 
   if (reportDay == "SATURDAY") {
 
     ScriptApp.newTrigger('runTool')
-      .timeBased()
-      .atHour(newhour)
-      .onWeekDay(ScriptApp.WeekDay.SATURDAY)
-      .create();
+    .timeBased()
+    .atHour(newhour)
+    .onWeekDay(ScriptApp.WeekDay.SATURDAY)
+    .create();
 
   }
 
   if (reportDay == "SUNDAY") {
 
     ScriptApp.newTrigger('runTool')
-      .timeBased()
-      .atHour(newhour)
-      .onWeekDay(ScriptApp.WeekDay.SUNDAY)
-      .create();
+    .timeBased()
+    .atHour(newhour)
+    .onWeekDay(ScriptApp.WeekDay.SUNDAY)
+    .create();
 
   }
 }
@@ -690,69 +690,69 @@ function startScheduledReportThree() {
   if (reportDay == "MONDAY") {
 
     ScriptApp.newTrigger('runTool')
-      .timeBased()
-      .atHour(newhour)
-      .onWeekDay(ScriptApp.WeekDay.MONDAY)
-      .create();
+    .timeBased()
+    .atHour(newhour)
+    .onWeekDay(ScriptApp.WeekDay.MONDAY)
+    .create();
   }
 
   if (reportDay == "TUESDAY") {
 
     ScriptApp.newTrigger('runTool')
-      .timeBased()
-      .atHour(newhour)
-      .onWeekDay(ScriptApp.WeekDay.TUESDAY)
-      .create();
+    .timeBased()
+    .atHour(newhour)
+    .onWeekDay(ScriptApp.WeekDay.TUESDAY)
+    .create();
 
   }
 
   if (reportDay == "WEDNESDAY") {
 
     ScriptApp.newTrigger('runTool')
-      .timeBased()
-      .atHour(newhour)
-      .onWeekDay(ScriptApp.WeekDay.WEDNESDAY)
-      .create();
+    .timeBased()
+    .atHour(newhour)
+    .onWeekDay(ScriptApp.WeekDay.WEDNESDAY)
+    .create();
 
   }
 
   if (reportDay == "THURSDAY") {
 
     ScriptApp.newTrigger('runTool')
-      .timeBased()
-      .atHour(newhour)
-      .onWeekDay(ScriptApp.WeekDay.THURSDAY)
-      .create();
+    .timeBased()
+    .atHour(newhour)
+    .onWeekDay(ScriptApp.WeekDay.THURSDAY)
+    .create();
 
   }
 
   if (reportDay == "FRIDAY") {
 
     ScriptApp.newTrigger('runTool')
-      .timeBased()
-      .atHour(newhour)
-      .onWeekDay(ScriptApp.WeekDay.FRIDAY)
-      .create();
+    .timeBased()
+    .atHour(newhour)
+    .onWeekDay(ScriptApp.WeekDay.FRIDAY)
+    .create();
 
   }
 
   if (reportDay == "SATURDAY") {
 
     ScriptApp.newTrigger('runTool')
-      .timeBased()
-      .atHour(newhour)
-      .onWeekDay(ScriptApp.WeekDay.SATURDAY)
-      .create();
+    .timeBased()
+    .atHour(newhour)
+    .onWeekDay(ScriptApp.WeekDay.SATURDAY)
+    .create();
 
   }
 
   if (reportDay == "SUNDAY") {
 
     ScriptApp.newTrigger('runTool')
-      .timeBased()
-      .atHour(newhour)
-      .onWeekDay(ScriptApp.WeekDay.SUNDAY)
-      .create();
+    .timeBased()
+    .atHour(newhour)
+    .onWeekDay(ScriptApp.WeekDay.SUNDAY)
+    .create();
 
   }
 }
@@ -839,69 +839,69 @@ function startScheduledReportFour() {
   if (reportDay == "MONDAY") {
 
     ScriptApp.newTrigger('runTool')
-      .timeBased()
-      .atHour(newhour)
-      .onWeekDay(ScriptApp.WeekDay.MONDAY)
-      .create();
+    .timeBased()
+    .atHour(newhour)
+    .onWeekDay(ScriptApp.WeekDay.MONDAY)
+    .create();
   }
 
   if (reportDay == "TUESDAY") {
 
     ScriptApp.newTrigger('runTool')
-      .timeBased()
-      .atHour(newhour)
-      .onWeekDay(ScriptApp.WeekDay.TUESDAY)
-      .create();
+    .timeBased()
+    .atHour(newhour)
+    .onWeekDay(ScriptApp.WeekDay.TUESDAY)
+    .create();
 
   }
 
   if (reportDay == "WEDNESDAY") {
 
     ScriptApp.newTrigger('runTool')
-      .timeBased()
-      .atHour(newhour)
-      .onWeekDay(ScriptApp.WeekDay.WEDNESDAY)
-      .create();
+    .timeBased()
+    .atHour(newhour)
+    .onWeekDay(ScriptApp.WeekDay.WEDNESDAY)
+    .create();
 
   }
 
   if (reportDay == "THURSDAY") {
 
     ScriptApp.newTrigger('runTool')
-      .timeBased()
-      .atHour(newhour)
-      .onWeekDay(ScriptApp.WeekDay.THURSDAY)
-      .create();
+    .timeBased()
+    .atHour(newhour)
+    .onWeekDay(ScriptApp.WeekDay.THURSDAY)
+    .create();
 
   }
 
   if (reportDay == "FRIDAY") {
 
     ScriptApp.newTrigger('runTool')
-      .timeBased()
-      .atHour(newhour)
-      .onWeekDay(ScriptApp.WeekDay.FRIDAY)
-      .create();
+    .timeBased()
+    .atHour(newhour)
+    .onWeekDay(ScriptApp.WeekDay.FRIDAY)
+    .create();
 
   }
 
   if (reportDay == "SATURDAY") {
 
     ScriptApp.newTrigger('runTool')
-      .timeBased()
-      .atHour(newhour)
-      .onWeekDay(ScriptApp.WeekDay.SATURDAY)
-      .create();
+    .timeBased()
+    .atHour(newhour)
+    .onWeekDay(ScriptApp.WeekDay.SATURDAY)
+    .create();
 
   }
 
   if (reportDay == "SUNDAY") {
 
     ScriptApp.newTrigger('runTool')
-      .timeBased()
-      .atHour(newhour)
-      .onWeekDay(ScriptApp.WeekDay.SUNDAY)
-      .create();
+    .timeBased()
+    .atHour(newhour)
+    .onWeekDay(ScriptApp.WeekDay.SUNDAY)
+    .create();
 
   }
 }
@@ -987,70 +987,70 @@ function startScheduledLog() {
   if (logDay == "MONDAY") {
 
     ScriptApp.newTrigger('runLog')
-      .timeBased()
-      .atHour(newloghour)
-      .onWeekDay(ScriptApp.WeekDay.MONDAY)
-      .create();
+    .timeBased()
+    .atHour(newloghour)
+    .onWeekDay(ScriptApp.WeekDay.MONDAY)
+    .create();
 
   }
 
   if (logDay == "TUESDAY") {
 
     ScriptApp.newTrigger('runLog')
-      .timeBased()
-      .atHour(newloghour)
-      .onWeekDay(ScriptApp.WeekDay.TUESDAY)
-      .create();
+    .timeBased()
+    .atHour(newloghour)
+    .onWeekDay(ScriptApp.WeekDay.TUESDAY)
+    .create();
 
   }
 
   if (logDay == "WEDNESDAY") {
 
     ScriptApp.newTrigger('runLog')
-      .timeBased()
-      .atHour(newloghour)
-      .onWeekDay(ScriptApp.WeekDay.WEDNESDAY)
-      .create();
+    .timeBased()
+    .atHour(newloghour)
+    .onWeekDay(ScriptApp.WeekDay.WEDNESDAY)
+    .create();
 
   }
 
   if (logDay == "THURSDAY") {
 
     ScriptApp.newTrigger('runLog')
-      .timeBased()
-      .atHour(newloghour)
-      .onWeekDay(ScriptApp.WeekDay.THURSDAY)
-      .create();
+    .timeBased()
+    .atHour(newloghour)
+    .onWeekDay(ScriptApp.WeekDay.THURSDAY)
+    .create();
 
   }
 
   if (logDay == "FRIDAY") {
 
     ScriptApp.newTrigger('runLog')
-      .timeBased()
-      .atHour(newloghour)
-      .onWeekDay(ScriptApp.WeekDay.FRIDAY)
-      .create();
+    .timeBased()
+    .atHour(newloghour)
+    .onWeekDay(ScriptApp.WeekDay.FRIDAY)
+    .create();
 
   }
 
   if (logDay == "SATURDAY") {
 
     ScriptApp.newTrigger('runLog')
-      .timeBased()
-      .atHour(newloghour)
-      .onWeekDay(ScriptApp.WeekDay.SATURDAY)
-      .create();
+    .timeBased()
+    .atHour(newloghour)
+    .onWeekDay(ScriptApp.WeekDay.SATURDAY)
+    .create();
 
   }
 
   if (logDay == "SUNDAY") {
 
     ScriptApp.newTrigger('runLog')
-      .timeBased()
-      .atHour(newloghour)
-      .onWeekDay(ScriptApp.WeekDay.SUNDAY)
-      .create();
+    .timeBased()
+    .atHour(newloghour)
+    .onWeekDay(ScriptApp.WeekDay.SUNDAY)
+    .create();
 
   }
 }
