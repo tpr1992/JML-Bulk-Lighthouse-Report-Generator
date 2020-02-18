@@ -191,52 +191,6 @@ function createDailyLogTriggerEvening() {
     .create();
 }
 
-// ***************
-// Send Email with Data (WIP, might delete)
-// ***************
-
-function getValues1(email, subjectLine, date, currentTime) {
-  var columnNumberToWatch = 10; // column A = 1, B = 2, etc.
-  var valueToWatch = "complete";
-  var sheetNameToMoveTheRowTo = "Log";
-  var sheet = SpreadsheetApp.getActiveSpreadsheet();
-  var activeSheet = sheet.getSheetByName("Results").activate();
-  var cell = sheet.getRange("J6:J");
-  var type = SpreadsheetApp.CopyPasteType.PASTE_VALUES;
-  var lastRow = sheet.getLastRow();
-  var Avals = sheet.getRange("J6:J").getValues();
-  var Alast = Avals.filter(String).length;
-  var test = activeSheet.getRange(cell.getRow(), 2, Alast, activeSheet.getLastColumn()).getValues();
-  var ui = SpreadsheetApp.getUi()
-  var data = sheet.getRange("B5:J").getValues()
-  var columnHeader = "<p><b>Header<b><p>" + data[0] + "<br />" + "<br />";
-  var messageContent = cleanData(JSON.stringify(data[1]));
-  ui.alert(data + "Email sent to " + email);
-
-  var csvStr = "";
-  for (var i = 0; i < data.length; i++) {
-    var row = ""
-    for (var j = 0; j < data[i].length; j++) {
-      if (data[i][j]) {
-        row = row + data[i][j];
-        row = row + "";
-        row = row.substring(0, (row.length - 1));
-        csvStr += row + "\n";
-      }
-    }
-  }
-  // Creates a blob of the csv file
-  var csvBlob = Utilities.newBlob(csvStr, 'text/csv', 'pageSpeedData.csv');
-  sendEmail(email, "Lighthouse ", date, currentTime, csvBlob.getDataAsString());
-  Logger.log(csvBlob.getDataAsString())
-  // sendEmail sends string of all data - still needs formatting
-  DriveApp.createFile('test', 'file');
-}
-
-function cleanData(message) {
-  message.split(',').join('AAAAAAA')
-}
-
 //==============
 
 //Send email on log
