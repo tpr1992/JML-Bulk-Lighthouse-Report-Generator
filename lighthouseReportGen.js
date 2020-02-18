@@ -1063,7 +1063,7 @@ function convertToAmPm(isoHour, min) {
   var suffix = (estH >= 12) ? "pm" : "am";
   var convertedH = ((estH > 12) ? estH - 12 : estH) || (estH == 0 ? 12 : estH);
   var newTime = convertedH + ":" + min + suffix;
-  return newTime;
+  return newTime.length < 7 ? 0 + newTime : newTime;
 }
 
 function runCheck(Url) {
