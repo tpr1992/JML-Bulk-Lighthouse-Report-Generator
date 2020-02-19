@@ -1108,4 +1108,4 @@ function runCheck(Url) {
     Utilities.sleep(500);
     return array;
   }
-}
+};
