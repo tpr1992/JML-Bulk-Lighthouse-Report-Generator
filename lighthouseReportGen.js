@@ -84,6 +84,8 @@ function resetSchedule() {
   } else {
     resetFailure();
   }
+  checkTriggerStatusEmail();
+  checkTriggerStatusReports();
 }
 
 // Set Default Triggers
@@ -94,6 +96,38 @@ function scheduleboth() {
   startScheduledReportFour();
   startScheduledLog();
   scheduleConfirm();
+}
+
+function checkTriggerStatusEmail() {
+  var triggers = ScriptApp.getProjectTriggers();
+  var settingsSheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("Settings");
+  var email = settingsSheet.getRange("C11:C11").getValue();
+  var arr = [];
+  for (var i = 0; i < triggers.length; i++) {
+      arr.push(triggers[i].getHandlerFunction());
+  }
+  if (arr.indexOf("grabEmailFromSettingsAndSendWeeklyReport") > -1) {
+    Logger.log(arr)
+    settingsSheet.getRange("C18:C18").setValue("Yes");
+  } else {
+      settingsSheet.getRange("C18:C18").setValue("No");
+  }
+}
+
+function checkTriggerStatusReports() {
+  var triggers = ScriptApp.getProjectTriggers();
+  var settingsSheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("Settings");
+  var email = settingsSheet.getRange("C11:C11").getValue();
+  var arr = [];
+  for (var i = 0; i < triggers.length; i++) {
+      arr.push(triggers[i].getHandlerFunction());
+  }
+  if (arr.indexOf("runTool") > -1 && arr.indexOf("runLog") > -1) {
+    Logger.log(arr)
+    settingsSheet.getRange("C17:C17").setValue("Yes");
+  } else {
+      settingsSheet.getRange("C17:C17").setValue("No");
+  }
 }
 
 // ***************
@@ -113,6 +147,8 @@ function dailyTrigger() {
   createDailyLogTriggerAfternoon();
   createDailyLogTriggerEvening();
   scheduleConfirm();
+  checkTriggerStatusReports();
+  checkTriggerStatusEmail();
 }
 
 // ***************
@@ -206,6 +242,7 @@ function createDailyLogTriggerEvening() {
 
 function weeklyEmail() {
   setWeeklyEmailTrigger();
+  checkTriggerStatusEmail();
 }
 
 function setWeeklyEmailTrigger() {
