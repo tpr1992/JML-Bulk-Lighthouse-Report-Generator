@@ -1,8 +1,8 @@
 /***************************************************
-* Bulk URL PageSpeed Tool (PageSpeed Insights v5)
-* by james@upbuild.io
-* for JML by tronan@jmclaughlin.com
-***************************************************/
+ * Bulk URL PageSpeed Tool (PageSpeed Insights v5)
+ * by james@upbuild.io
+ * for JML by tronan@jmclaughlin.com
+ ***************************************************/
 
 // ================== //
 // -  Trigger Times - //
@@ -22,43 +22,43 @@
 function onOpen() {
   var sheet = SpreadsheetApp.getActiveSpreadsheet();
   var entries = [{
-    name: "Set Report & Log Schedule",
-    functionName: "scheduleboth"
-  },
-  {
-    name: "Manual Push Report",
-    functionName: "runTool"
-  },
-  {
-    name: "Manual Push Log",
-    functionName: "runLog"
-  },
-  {
-    name: "Reset Schedule",
-    functionName: "resetSchedule"
-  }
-];
-sheet.addMenu("PageSpeed Menu", entries);
+      name: "Set Report & Log Schedule",
+      functionName: "scheduleboth"
+    },
+    {
+      name: "Manual Push Report",
+      functionName: "runTool"
+    },
+    {
+      name: "Manual Push Log",
+      functionName: "runLog"
+    },
+    {
+      name: "Reset Schedule",
+      functionName: "resetSchedule"
+    }
+  ];
+  sheet.addMenu("PageSpeed Menu", entries);
 
-// Add JML Menu to run custom schedule
-var dailySchedule = [{
-  name: "Set Daily Schedule",
-  functionName: "dailyTrigger"
-},
-{
-  name: "Clear Schedule",
-  functionName: "resetSchedule"
-},
-{
-  name: "Share Logs",
-  functionName: "triggerOnEdit"
-},
-{
-  name: "Schedule Weekly Email",
-  functionName: "weeklyEmail"
-}
-];
-sheet.addMenu("JML Menu", dailySchedule)
+  // Add JML Menu to run custom schedule
+  var dailySchedule = [{
+      name: "Set Daily Schedule",
+      functionName: "dailyTrigger"
+    },
+    {
+      name: "Clear Schedule",
+      functionName: "resetSchedule"
+    },
+    {
+      name: "Share Logs",
+      functionName: "triggerOnEdit"
+    },
+    {
+      name: "Schedule Weekly Email",
+      functionName: "weeklyEmail"
+    }
+  ];
+  sheet.addMenu("JML Menu", dailySchedule)
 }
 
 function resetsuccess() {
@@ -121,54 +121,54 @@ function dailyTrigger() {
 
 function createDailyReportTriggerMorningOne() {
   ScriptApp.newTrigger('runTool')
-  .timeBased()
-  .atHour(9)
-  .everyDays(1)
-  .create();
+    .timeBased()
+    .atHour(9)
+    .everyDays(1)
+    .create();
 }
 
 function createDailyReportTriggerMorningTwo() {
   ScriptApp.newTrigger('runTool')
-  .timeBased()
-  .atHour(10)
-  .everyDays(1)
-  .create();
+    .timeBased()
+    .atHour(10)
+    .everyDays(1)
+    .create();
 }
 
 //######################
 
 function createDailyReportTriggerAfternoonOne() {
   ScriptApp.newTrigger('runTool')
-  .timeBased()
-  .atHour(12)
-  .everyDays(1)
-  .create();
+    .timeBased()
+    .atHour(12)
+    .everyDays(1)
+    .create();
 }
 
 function createDailyReportTriggerAfternoonTwo() {
   ScriptApp.newTrigger('runTool')
-  .timeBased()
-  .atHour(13)
-  .everyDays(1)
-  .create();
+    .timeBased()
+    .atHour(13)
+    .everyDays(1)
+    .create();
 }
 
 //######################
 
 function createDailyReportTriggerEveningOne() {
   ScriptApp.newTrigger('runTool')
-  .timeBased()
-  .atHour(16)
-  .everyDays(1)
-  .create();
+    .timeBased()
+    .atHour(16)
+    .everyDays(1)
+    .create();
 }
 
 function createDailyReportTriggerEveningTwo() {
   ScriptApp.newTrigger('runTool')
-  .timeBased()
-  .atHour(17)
-  .everyDays(1)
-  .create();
+    .timeBased()
+    .atHour(17)
+    .everyDays(1)
+    .create();
 }
 
 // ***************
@@ -177,26 +177,26 @@ function createDailyReportTriggerEveningTwo() {
 
 function createDailyLogTriggerMorning() {
   ScriptApp.newTrigger('runLog')
-  .timeBased()
-  .atHour(11)
-  .everyDays(1)
-  .create();
+    .timeBased()
+    .atHour(11)
+    .everyDays(1)
+    .create();
 }
 
 function createDailyLogTriggerAfternoon() {
   ScriptApp.newTrigger('runLog')
-  .timeBased()
-  .atHour(14)
-  .everyDays(1)
-  .create();
+    .timeBased()
+    .atHour(14)
+    .everyDays(1)
+    .create();
 }
 
 function createDailyLogTriggerEvening() {
   ScriptApp.newTrigger('runLog')
-  .timeBased()
-  .atHour(18)
-  .everyDays(1)
-  .create();
+    .timeBased()
+    .atHour(18)
+    .everyDays(1)
+    .create();
 }
 
 // ***************
@@ -210,11 +210,11 @@ function weeklyEmail() {
 
 function setWeeklyEmailTrigger() {
   ScriptApp.newTrigger('grabEmailFromSettingsAndSendWeeklyReport')
-  .timeBased()
-  .everyWeeks(1)
-  .onWeekDay(ScriptApp.WeekDay.MONDAY)
-  .atHour(9)
-  .create();
+    .timeBased()
+    .everyWeeks(1)
+    .onWeekDay(ScriptApp.WeekDay.MONDAY)
+    .atHour(9)
+    .create();
 }
 
 function grabEmailFromSettingsAndSendWeeklyReport() {
@@ -230,14 +230,16 @@ function grabEmailFromSettingsAndSendWeeklyReport() {
   var date = Utilities.formatDate(new Date(), "GMT-5", "MM/dd ");
   var subjectLine = "Your Lighthouse Report Results for "
   var jmlLogoBlob = UrlFetchApp
-  .fetch(jmlLogo)
-  .getBlob()
-  .setName("jmlLogoBlob");
+    .fetch(jmlLogo)
+    .getBlob()
+    .setName("jmlLogoBlob");
   MailApp.sendEmail({
     to: email,
     subject: subjectLine + date + "-" + currentTime,
     htmlBody: (message + liveLink + downloadCsv + "<br><br>" + "<hr style='margin-bottom:15px;'>" + embedLogo),
-    inlineImages: {jmlLogo: jmlLogoBlob}
+    inlineImages: {
+      jmlLogo: jmlLogoBlob
+    }
   })
 }
 
@@ -314,14 +316,16 @@ function emailLink(email, subject, date, time) {
   var jmlLogo = "<<< IMAGE LINK >>>"
   var embedLogo = "<a href='<<< IMAGE CID LINK >>>'></a>"
   var jmlLogoBlob = UrlFetchApp
-  .fetch(jmlLogo)
-  .getBlob()
-  .setName("jmlLogoBlob");
+    .fetch(jmlLogo)
+    .getBlob()
+    .setName("jmlLogoBlob");
   MailApp.sendEmail({
     to: email,
     subject: subject + date + "-" + time,
     htmlBody: (message + liveLink + downloadCsv + "<br><br>" + "<hr style='margin-bottom:15px;'>" + embedLogo),
-    inlineImages: {jmlLogo: jmlLogoBlob}
+    inlineImages: {
+      jmlLogo: jmlLogoBlob
+    }
   })
 }
 
@@ -359,7 +363,7 @@ function showMessageOnUpdate(e) {
     getUserEmail;
 
     if (validateEmail(userEmail) == true) {
-      emailLink(userEmail,subjectLine, date, currentTime);
+      emailLink(userEmail, subjectLine, date, currentTime);
       Browser.msgBox("Email sent to " + userEmail);
     } else {
       var failed = ui.alert("Sorry, we weren't able to verify your email address.");
