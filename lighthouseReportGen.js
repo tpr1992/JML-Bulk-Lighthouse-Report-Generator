@@ -17,11 +17,10 @@
 //  5-6    || 6-7     //
 //         ||         //
 // ================== //
-
+// ================== //
 
 function onOpen() {
   var sheet = SpreadsheetApp.getActiveSpreadsheet();
-  // Add JML Menu to run custom schedule
   var dailySchedule = [{
       name: "Run Report",
       functionName: "runTool"
@@ -43,7 +42,11 @@ function onOpen() {
       functionName: "resetSchedule"
     },
     {
-      name: "Share Logs",
+      name: "Cancel Email",
+      functionName: "cancelEmail"
+    },
+    {
+      name: "Share",
       functionName: "triggerOnEdit"
     }
   ];
@@ -54,23 +57,23 @@ function resetConfirm() {
   Browser.msgBox("Success! All triggers removed.");
 }
 
-function scheduleConfirm() {
-  Browser.msgBox("Reports Scheduled!")
-}
-
-function scheduleDuplicate() {
-  Browser.msgBox("Your schedule is already set. If you would like to clear it and start over, please first select 'Clear Schedule' and try again.");
-}
-
 function resetFailure() {
   Browser.msgBox("Your schedule is already empty.")
 }
 
-function emailConfirm(email) {
-  Browser.msgBox("Weekly email set! Your report will be sent to " + email + " on a weekly basis.");
+function scheduleConfirm() {
+  Browser.msgBox("Reports Scheduled!")
 }
 
-// Deletes all triggers in the current project.
+function scheduleFailure() {
+  Browser.msgBox("Your schedule is already set. If you would like to clear it and start over, please first select 'Clear Schedule' and try again.");
+}
+
+function emailConfirm(email) {
+  Browser.msgBox("Weekly email set! Your report will be sent to " + email + " .");
+}
+
+// Deletes all triggers except for event listeners
 function resetSchedule() {
   var triggers = ScriptApp.getProjectTriggers();
   if (triggers.length > 0) {
@@ -87,6 +90,21 @@ function resetSchedule() {
   checkTriggerStatusReports();
 }
 
+// Delete trigger for scheduled email
+function cancelEmail() {
+  var triggers = ScriptApp.getProjectTriggers();
+  if (triggers.length > 0) {
+    for (var i = 0; i < triggers.length; i++) {
+      if (triggers[i].getHandlerFunction() != "checkEmail" && triggers[i].getHandlerFunction() != "runTool" && triggers[i].getHandlerFunction() != "runLog") {
+      ScriptApp.deleteTrigger(triggers[i]);
+      }
+    }
+  }
+  checkTriggerStatusEmail();
+  checkTriggerStatusReports();
+}
+
+// Check if email is scheduled to go out and reclect change in settings
 function checkTriggerStatusEmail() {
   var triggers = ScriptApp.getProjectTriggers();
   var settingsSheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("Settings");
@@ -103,6 +121,7 @@ function checkTriggerStatusEmail() {
   }
 }
 
+// Check if reports are scheduled to run and reflect change in settings
 function checkTriggerStatusReports() {
   var triggers = ScriptApp.getProjectTriggers();
   var settingsSheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("Settings");
@@ -119,6 +138,7 @@ function checkTriggerStatusReports() {
   }
 }
 
+// Prevent duplicate triggers
 function checkIfTriggersAlreadyExistThenSet() {
   var triggers = ScriptApp.getProjectTriggers();
   var arr = [];
@@ -136,7 +156,7 @@ function checkIfTriggersAlreadyExistThenSet() {
     }
   })
   if (filteredRun.length >= 6 && filteredLogs.length >= 3) {
-   scheduleDuplicate();
+   scheduleFailure();
   } else {
       dailyTrigger();
   }
@@ -146,6 +166,7 @@ function checkIfTriggersAlreadyExistThenSet() {
 // Check Email Input - Update on Edit ##################################################
 // ***************
 
+// Reflect email validation in settings
 function checkEmail() {
   var settingsSheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("Settings");
   var email = settingsSheet.getRange("C11:C11").getValue();
@@ -156,28 +177,6 @@ function checkEmail() {
   } else {
     settingsSheet.getRange("C12:C12").setValue("Please enter a valid email address");
   }
-}
-
-function weeklyEmail() {
-  var settingsSheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("Settings");
-  var email = settingsSheet.getRange("C11:C11").getValue();
-  var triggers = ScriptApp.getProjectTriggers();
-  var arr = [];
-  for (var i = 0; i < triggers.length; i++) {
-    arr.push(triggers[i].getHandlerFunction());
-  }
-  var emailArr = arr.filter(function(item) {
-    if (item == "grabEmailFromSettingsAndSendWeeklyReport") {
-      return item;
-    }
-  })
-  if (emailArr.length != 0) {
-    Browser.msgBox("Your email is already set to go out, if you would like to cancel please select 'Clear Schedule' above and try again.")
-  } else {
-    setWeeklyEmailTrigger();
-    emailConfirm(email);
-  }
-  checkTriggerStatusEmail();
 }
 
 // ***************
